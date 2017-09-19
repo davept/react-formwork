@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test a simple render 1`] = `
+<div>
+  <form
+    name="simple-form"
+  >
+    <fieldset
+      className="form-group"
+    >
+      <legend>
+        Name
+      </legend>
+      <input
+        className="form-control"
+        name="name"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="text"
+        value={undefined}
+      />
+      <label
+        className="formwork-validation-error"
+      >
+        
+      </label>
+    </fieldset>
+    <fieldset
+      className="form-group"
+    >
+      <legend>
+        Email
+      </legend>
+      <input
+        className="form-control"
+        name="email"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="text"
+        value={undefined}
+      />
+      <label
+        className="formwork-validation-error"
+      >
+        
+      </label>
+    </fieldset>
+    <button
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+`;

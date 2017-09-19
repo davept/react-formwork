@@ -1,0 +1,282 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test a simple render 1`] = `
+<div>
+  <form
+    name="form01"
+    onSubmit={[Function]}
+  >
+    <div
+      style={
+        Object {
+          "border": "2px solid red",
+        }
+      }
+    >
+      <p>
+        Given Name:
+      </p>
+      <p>
+        name
+      </p>
+      <p>
+        <input
+          className="form-control"
+          name="name"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="text"
+          validator={
+            Object {
+              "message": "Length must be greater than 2 characters",
+              "validate": [Function],
+            }
+          }
+          value="David"
+        />
+      </p>
+    </div>
+    <fieldset
+      className="form-group"
+    >
+      <legend>
+        Email
+      </legend>
+      <input
+        className="form-control"
+        name="email"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="text"
+        validator="name"
+        value="a@b.c"
+      />
+      <label
+        className="formwork-validation-error"
+      >
+        
+      </label>
+    </fieldset>
+    <fieldset
+      className="form-group"
+    >
+      <legend>
+        Job Title
+      </legend>
+      <input
+        className="form-control"
+        name="jobTitle"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="text"
+        value="Developer"
+      />
+      <label
+        className="formwork-validation-error"
+      >
+        
+      </label>
+    </fieldset>
+    <fieldset
+      className="form-group"
+    >
+      <legend>
+        National Insurance Number
+      </legend>
+      <input
+        className="form-control"
+        name="nationalInsuranceNumber"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="text"
+        value="abc123"
+      />
+      <label
+        className="formwork-validation-error"
+      >
+        
+      </label>
+    </fieldset>
+    <fieldset
+      className="form-group"
+    >
+      <legend>
+        Heard Of Us
+      </legend>
+      <select
+        className="form-control"
+        data={
+          Array [
+            Object {
+              "key": 1,
+              "value": "Radio",
+            },
+            Object {
+              "key": 2,
+              "value": "TV",
+            },
+            Object {
+              "key": 3,
+              "value": "Web",
+            },
+          ]
+        }
+        defaultValue={-1}
+        name="heardOfUs"
+        onChange={[Function]}
+      >
+        <option
+          disabled={true}
+          hidden={true}
+          value={-1}
+        />
+        <option
+          value={1}
+        >
+          Radio
+        </option>
+        <option
+          value={2}
+        >
+          TV
+        </option>
+        <option
+          value={3}
+        >
+          Web
+        </option>
+      </select>
+      <label
+        className="formwork-validation-error"
+      >
+        
+      </label>
+    </fieldset>
+    <fieldset
+      className="form-group"
+    >
+      <legend>
+        Heard Of Us2
+      </legend>
+      <div>
+        <input
+          data={
+            Array [
+              Object {
+                "key": 1,
+                "value": "Radio",
+              },
+              Object {
+                "key": 2,
+                "value": "TV",
+              },
+              Object {
+                "key": 3,
+                "value": "Web",
+              },
+            ]
+          }
+          name="heardOfUs2"
+          onChange={[Function]}
+          type="radio"
+          value={1}
+        />
+        Radio
+        <br />
+        <input
+          data={
+            Array [
+              Object {
+                "key": 1,
+                "value": "Radio",
+              },
+              Object {
+                "key": 2,
+                "value": "TV",
+              },
+              Object {
+                "key": 3,
+                "value": "Web",
+              },
+            ]
+          }
+          name="heardOfUs2"
+          onChange={[Function]}
+          type="radio"
+          value={2}
+        />
+        TV
+        <br />
+        <input
+          data={
+            Array [
+              Object {
+                "key": 1,
+                "value": "Radio",
+              },
+              Object {
+                "key": 2,
+                "value": "TV",
+              },
+              Object {
+                "key": 3,
+                "value": "Web",
+              },
+            ]
+          }
+          name="heardOfUs2"
+          onChange={[Function]}
+          type="radio"
+          value={3}
+        />
+        Web
+        <br />
+      </div>
+      <label
+        className="formwork-validation-error"
+      >
+        
+      </label>
+    </fieldset>
+    <div>
+      <p>
+        Can we get an individual element by name?
+      </p>
+      <fieldset
+        className="form-group"
+      >
+        <legend>
+          Email
+        </legend>
+        <input
+          className="form-control"
+          name="email"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="text"
+          validator="name"
+          value="a@b.c"
+        />
+        <label
+          className="formwork-validation-error"
+        >
+          
+        </label>
+      </fieldset>
+    </div>
+    <button
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+  <pre>
+    {
+  "name": "David",
+  "email": "a@b.c",
+  "jobTitle": "Developer",
+  "nationalInsuranceNumber": "abc123"
+}
+  </pre>
+</div>
+`;
