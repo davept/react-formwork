@@ -20,15 +20,15 @@ export default function (ComposedComponent, config) {
             };
         }
 
-        normalizeFormworkElements = ({elements}) => isArray(elements) ? elements : map(keys(elements), key => ({name: key}));
+        normalizeFormworkElements = ({fields}) => isArray(fields) ? fields : map(keys(fields), key => ({name: key}));
 
         componentDidMount() {
-            const formworkElements = this.normalizeFormworkElements(config);
+            const formworkFields = this.normalizeFormworkElements(config);
             const validatorDefinitions = {};
             const validators = {};
 
-            each(formworkElements, element => {
-                const {name, validator} = element;
+            each(formworkFields, field => {
+                const {name, validator} = field;
 
                 let elementValidator;
                 if (isObject(validator)) {
@@ -112,12 +112,12 @@ export default function (ComposedComponent, config) {
 
         generate() {
             const {titles = {}} = config;
-            const formworkElements = this.normalizeFormworkElements(config);
+            const formworkFields = this.normalizeFormworkElements(config);
             const templateDefinitions = {};
-            const elements = [];
-            const elementsByName = {};
+            const fields = [];
+            const fieldsByName = {};
 
-            each(formworkElements, element => {
+            each(formworkFields, field => {
                 const {
                     name,
                     template,
@@ -125,7 +125,7 @@ export default function (ComposedComponent, config) {
                     input = this.defaultInput(),
                     title = titles[name] || this.titleFromName(name),
                     ...rest
-                } = element;
+                } = field;
 
                 let generateTemplate;
                 if (isFunction(template)) {
@@ -137,15 +137,15 @@ export default function (ComposedComponent, config) {
                     generateTemplate = this.defaultTemplate();
                 }
 
-                const formElement = generateTemplate(title, name, input(type, name, this.onChange, element.data, rest));
+                const formElement = generateTemplate(title, name, input(type, name, this.onChange, field.data, rest));
 
-                elements.push(formElement);
-                elementsByName[name] = elements[elements.length - 1];
+                fields.push(formElement);
+                fieldsByName[name] = fields[fields.length - 1];
             });
 
             return {
-                elements,
-                elementsByName,
+                fields,
+                fieldsByName,
                 submit: <button type="submit">Submit</button>
             };
         }

@@ -3,12 +3,12 @@ import Formwork from '../../src'
 
 class SimpleForm extends Component {
     render() {
-        const {elements, submit} = this.props.formwork;
+        const {fields, submit} = this.props.formwork;
 
         return (
             <div>
                 <form name="simple-form">
-                    {elements}
+                    {fields}
                     {submit}
                 </form>
             </div>
@@ -22,5 +22,5 @@ const model = {
 };
 
 export default Formwork(SimpleForm, {
-    elements: model
+    fields: model
 });

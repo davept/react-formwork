@@ -156,7 +156,7 @@ exports[`Test a simple render 1`] = `
       className="form-group"
     >
       <legend>
-        Heard Of Us2
+        Industry
       </legend>
       <div>
         <input
@@ -164,72 +164,72 @@ exports[`Test a simple render 1`] = `
             Array [
               Object {
                 "key": 1,
-                "value": "Radio",
+                "value": "IT",
               },
               Object {
                 "key": 2,
-                "value": "TV",
+                "value": "Medicine",
               },
               Object {
                 "key": 3,
-                "value": "Web",
+                "value": "Leisure",
               },
             ]
           }
-          name="heardOfUs2"
+          name="Industry"
           onChange={[Function]}
           type="radio"
           value={1}
         />
-        Radio
+        IT
         <br />
         <input
           data={
             Array [
               Object {
                 "key": 1,
-                "value": "Radio",
+                "value": "IT",
               },
               Object {
                 "key": 2,
-                "value": "TV",
+                "value": "Medicine",
               },
               Object {
                 "key": 3,
-                "value": "Web",
+                "value": "Leisure",
               },
             ]
           }
-          name="heardOfUs2"
+          name="Industry"
           onChange={[Function]}
           type="radio"
           value={2}
         />
-        TV
+        Medicine
         <br />
         <input
           data={
             Array [
               Object {
                 "key": 1,
-                "value": "Radio",
+                "value": "IT",
               },
               Object {
                 "key": 2,
-                "value": "TV",
+                "value": "Medicine",
               },
               Object {
                 "key": 3,
-                "value": "Web",
+                "value": "Leisure",
               },
             ]
           }
-          name="heardOfUs2"
+          name="Industry"
           onChange={[Function]}
           type="radio"
           value={3}
         />
-        Web
+        Leisure
         <br />
       </div>
       <label

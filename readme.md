@@ -1,8 +1,47 @@
 # React-Formwork
 
-### ToDo
+**A ReactJS higher order component (HoC) to generate an HTML form from a Javascript object.**
 
-* Rename "elements" to "fields"
+#### Using:
+
+1) Install from npm:
+
+`npm install --save react-formwork`
+
+2) Import:
+
+`import Formwork from './formwork'` 
+
+3) Wrap a form component with the Formwork HoC:
+```
+class MyForm extends Component {
+    render() {
+        const { elements, submit, data } = this.props.formwork;
+        return (
+            <form>
+                {elements}
+                {submit}
+                <pre>
+                    {JSON.stringify(data, null, 2)}
+                </pre>
+            </form>
+        )
+    }
+}
+
+const model = {
+    name: 'David',
+    email: 'a@b.c',
+    jobTitle: 'Developer'
+};
+
+export default Formwork(MyForm, {
+    elements: model,
+    data: model
+});
+```
+
+In the example above we pass our JS object `model` to the `Formwork` HoC.  We pull the generated HTML form fields, the submit button and our bound data object from `props.formwork`'
 
 #### Conventions
 
@@ -19,3 +58,7 @@ npm run test
 #### Create dist build
 
 npm run dist
+
+#### ToDo
+
+* Add functional tests for validation

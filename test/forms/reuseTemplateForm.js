@@ -3,11 +3,11 @@ import Formwork from '../../src'
 
 class ReuseTemplateForm extends Component {
     render() {
-        const {elements, submit} = this.props.formwork;
+        const {fields, submit} = this.props.formwork;
         return (
             <div>
                 <form name="form01">
-                    {elements}
+                    {fields}
                     {submit}
                 </form>
             </div>
@@ -16,7 +16,7 @@ class ReuseTemplateForm extends Component {
 }
 
 export default Formwork(ReuseTemplateForm, {
-    elements: [
+    fields: [
         {
             name: 'name',
             title: 'Given Name:',

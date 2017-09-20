@@ -7,14 +7,14 @@ class ComplexForm extends Component {
     };
 
     render() {
-        const {elements, elementsByName, data, submit} = this.props.formwork;
+        const {fields, fieldsByName, data, submit} = this.props.formwork;
         return (
             <div>
                 <form name="form01" onSubmit={this.onSubmit}>
-                    {elements}
+                    {fields}
                     <div>
                         <p>Can we get an individual element by name?</p>
-                        {elementsByName['email']}
+                        {fieldsByName['email']}
                     </div>
                     {submit}
                 </form>
@@ -25,7 +25,7 @@ class ComplexForm extends Component {
 }
 
 export default Formwork(ComplexForm, {
-    elements: [
+    fields: [
         {
             name: 'name',
             title: 'Given Name:',
@@ -57,12 +57,12 @@ export default Formwork(ComplexForm, {
             ]
         },
         {
-            name: 'heardOfUs2',
+            name: 'Industry',
             type: 'radio',
             data: [
-                { key: 1, value: 'Radio' },
-                { key: 2, value: 'TV' },
-                { key: 3, value: 'Web' }
+                { key: 1, value: 'IT' },
+                { key: 2, value: 'Medicine' },
+                { key: 3, value: 'Leisure' }
             ]
         }
     ],
