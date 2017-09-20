@@ -276,7 +276,7 @@ exports.default = function (ComposedComponent, config) {
                     var formElement = generateTemplate(title, name, input(type, name, _this2.onChange, field.data, rest));
 
                     fields.push(formElement);
-                    fieldsByName[name] = fields[fields.length - 1];
+                    fieldsByName[name] = formElement;
                 });
 
                 return {

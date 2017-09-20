@@ -140,7 +140,7 @@ export default function (ComposedComponent, config) {
                 const formElement = generateTemplate(title, name, input(type, name, this.onChange, field.data, rest));
 
                 fields.push(formElement);
-                fieldsByName[name] = fields[fields.length - 1];
+                fieldsByName[name] = formElement;
             });
 
             return {
