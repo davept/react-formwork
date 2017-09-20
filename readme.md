@@ -1,5 +1,9 @@
 # React-Formwork
 
+### ToDo
+
+* Rename "elements" to "fields"
+
 #### Conventions
 
 * If no title is supplied the name will be used.  In this case the name will be split by capital letters or spaces into words.

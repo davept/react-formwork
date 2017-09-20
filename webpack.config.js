@@ -4,7 +4,10 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'index.js'
+        filename: 'index.js',
+        library: 'react-formwork',
+        libraryTarget: 'umd',
+        umdNamedDefine: true
     },
     module: {
         loaders: [{

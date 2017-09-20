@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory(require("react"), require("lodash/capitalize"), require("lodash/isArray"), require("lodash/isFunction"), require("lodash/isObject"), require("lodash/isString"), require("lodash/isNil"), require("lodash/map"), require("lodash/each"), require("lodash/keys"));
+	else if(typeof define === 'function' && define.amd)
+		define("react-formwork", ["react", "lodash/capitalize", "lodash/isArray", "lodash/isFunction", "lodash/isObject", "lodash/isString", "lodash/isNil", "lodash/map", "lodash/each", "lodash/keys"], factory);
+	else if(typeof exports === 'object')
+		exports["react-formwork"] = factory(require("react"), require("lodash/capitalize"), require("lodash/isArray"), require("lodash/isFunction"), require("lodash/isObject"), require("lodash/isString"), require("lodash/isNil"), require("lodash/map"), require("lodash/each"), require("lodash/keys"));
+	else
+		root["react-formwork"] = factory(root["react"], root["lodash/capitalize"], root["lodash/isArray"], root["lodash/isFunction"], root["lodash/isObject"], root["lodash/isString"], root["lodash/isNil"], root["lodash/map"], root["lodash/each"], root["lodash/keys"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_7__, __WEBPACK_EXTERNAL_MODULE_8__, __WEBPACK_EXTERNAL_MODULE_9__, __WEBPACK_EXTERNAL_MODULE_10__) {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -406,3 +416,4 @@ module.exports = require("lodash/keys");
 
 /***/ })
 /******/ ]);
+});
