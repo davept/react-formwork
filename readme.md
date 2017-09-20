@@ -4,15 +4,13 @@
 
 #### Using:
 
-1) Install from npm:
+* Install from npm:
 
 `npm install --save react-formwork`
+* Import:
 
-2) Import:
-
-`import Formwork from './formwork'` 
-
-3) Wrap a form component with the Formwork HoC:
+`import Formwork from 'react-formwork'` 
+* Wrap a form component with the Formwork HoC:
 ```
 class MyForm extends Component {
     render() {
