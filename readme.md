@@ -14,10 +14,10 @@
 ```
 class MyForm extends Component {
     render() {
-        const { elements, submit, data } = this.props.formwork;
+        const { fields, submit, data } = this.props.formwork;
         return (
             <form>
-                {elements}
+                {fields}
                 {submit}
                 <pre>
                     {JSON.stringify(data, null, 2)}
@@ -40,6 +40,29 @@ export default Formwork(MyForm, {
 ```
 
 In the example above we pass our JS object `model` to the `Formwork` HoC.  We pull the generated HTML form fields, the submit button and our bound data object from `props.formwork`'
+
+#### Example, accessing elements by name
+
+In case you want to individually place the form fields:
+```
+...
+render() {
+        const { fieldsByName } = this.props.formwork;
+        return (
+            <form>
+                <p>Name input:</p>
+                {fieldsByName['name']}
+                
+                <p>Email input:</p>
+                {fieldsByName['email']}
+                
+                <p>Job Title input:</p>
+                {fieldsByName['jobTitle']}
+            </form>
+        )
+    }
+...
+```
 
 #### Conventions
 

@@ -98,8 +98,8 @@ exports.default = function (ComposedComponent, config) {
             var _this = _possibleConstructorReturn(this, (Formwork.__proto__ || Object.getPrototypeOf(Formwork)).call(this, props));
 
             _this.normalizeFormworkElements = function (_ref) {
-                var elements = _ref.elements;
-                return (0, _isArray2.default)(elements) ? elements : (0, _map2.default)((0, _keys2.default)(elements), function (key) {
+                var fields = _ref.fields;
+                return (0, _isArray2.default)(fields) ? fields : (0, _map2.default)((0, _keys2.default)(fields), function (key) {
                     return { name: key };
                 });
             };
@@ -213,13 +213,13 @@ exports.default = function (ComposedComponent, config) {
         _createClass(Formwork, [{
             key: 'componentDidMount',
             value: function componentDidMount() {
-                var formworkElements = this.normalizeFormworkElements(config);
+                var formworkFields = this.normalizeFormworkElements(config);
                 var validatorDefinitions = {};
                 var validators = {};
 
-                (0, _each2.default)(formworkElements, function (element) {
-                    var name = element.name,
-                        validator = element.validator;
+                (0, _each2.default)(formworkFields, function (field) {
+                    var name = field.name,
+                        validator = field.validator;
 
 
                     var elementValidator = void 0;
@@ -247,21 +247,21 @@ exports.default = function (ComposedComponent, config) {
                 var _config$titles = config.titles,
                     titles = _config$titles === undefined ? {} : _config$titles;
 
-                var formworkElements = this.normalizeFormworkElements(config);
+                var formworkFields = this.normalizeFormworkElements(config);
                 var templateDefinitions = {};
-                var elements = [];
-                var elementsByName = {};
+                var fields = [];
+                var fieldsByName = {};
 
-                (0, _each2.default)(formworkElements, function (element) {
-                    var name = element.name,
-                        template = element.template,
-                        _element$type = element.type,
-                        type = _element$type === undefined ? 'text' : _element$type,
-                        _element$input = element.input,
-                        input = _element$input === undefined ? _this2.defaultInput() : _element$input,
-                        _element$title = element.title,
-                        title = _element$title === undefined ? titles[name] || _this2.titleFromName(name) : _element$title,
-                        rest = _objectWithoutProperties(element, ['name', 'template', 'type', 'input', 'title']);
+                (0, _each2.default)(formworkFields, function (field) {
+                    var name = field.name,
+                        template = field.template,
+                        _field$type = field.type,
+                        type = _field$type === undefined ? 'text' : _field$type,
+                        _field$input = field.input,
+                        input = _field$input === undefined ? _this2.defaultInput() : _field$input,
+                        _field$title = field.title,
+                        title = _field$title === undefined ? titles[name] || _this2.titleFromName(name) : _field$title,
+                        rest = _objectWithoutProperties(field, ['name', 'template', 'type', 'input', 'title']);
 
                     var generateTemplate = void 0;
                     if ((0, _isFunction2.default)(template)) {
@@ -273,15 +273,15 @@ exports.default = function (ComposedComponent, config) {
                         generateTemplate = _this2.defaultTemplate();
                     }
 
-                    var formElement = generateTemplate(title, name, input(type, name, _this2.onChange, element.data, rest));
+                    var formElement = generateTemplate(title, name, input(type, name, _this2.onChange, field.data, rest));
 
-                    elements.push(formElement);
-                    elementsByName[name] = elements[elements.length - 1];
+                    fields.push(formElement);
+                    fieldsByName[name] = fields[fields.length - 1];
                 });
 
                 return {
-                    elements: elements,
-                    elementsByName: elementsByName,
+                    fields: fields,
+                    fieldsByName: fieldsByName,
                     submit: _react2.default.createElement(
                         'button',
                         { type: 'submit' },
