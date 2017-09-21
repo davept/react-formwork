@@ -45,7 +45,7 @@ In the example above we pass our JS object `model` to the `Formwork` HoC.  We pu
 
 ### `Formwork(component, formDefinition)`
 
-Use `formDefinition` to generate HTML form elements and associated onChange databind and onBlur validation events then pass an array of these form fields to `component`.
+`Formwork` uses `formDefinition` to generate HTML form elements and associated onChange databind and onBlur validation events then pass an array of these form fields to `component`.
 
 #### Arguments
 
