@@ -97,7 +97,7 @@ exports.default = function (ComposedComponent, config) {
 
             var _this = _possibleConstructorReturn(this, (Formwork.__proto__ || Object.getPrototypeOf(Formwork)).call(this, props));
 
-            _this.normalizeFormworkElements = function (_ref) {
+            _this.normalizeFormworkFields = function (_ref) {
                 var fields = _ref.fields;
                 return (0, _isArray2.default)(fields) ? fields : (0, _map2.default)((0, _keys2.default)(fields), function (key) {
                     return { name: key };
@@ -176,8 +176,6 @@ exports.default = function (ComposedComponent, config) {
                     var inputClassName = 'form-control';
 
                     switch (type) {
-                        case 'text':
-                            return _react2.default.createElement('input', _extends({ type: type, name: inputName, onBlur: _this.onBlur, onChange: onChange, value: value, className: inputClassName }, additionalProperties));
                         case 'select':
                             return _react2.default.createElement(
                                 'select',
@@ -199,6 +197,8 @@ exports.default = function (ComposedComponent, config) {
                                     return [_react2.default.createElement('input', _extends({ type: 'radio', name: inputName, onChange: onChange, key: option.key, value: option.key }, additionalProperties)), option.value, _react2.default.createElement('br', null)];
                                 })
                             );
+                        default:
+                            return _react2.default.createElement('input', _extends({ type: type, name: inputName, onBlur: _this.onBlur, onChange: onChange, value: value, className: inputClassName }, additionalProperties));
                     }
                 };
             };
@@ -213,7 +213,7 @@ exports.default = function (ComposedComponent, config) {
         _createClass(Formwork, [{
             key: 'componentDidMount',
             value: function componentDidMount() {
-                var formworkFields = this.normalizeFormworkElements(config);
+                var formworkFields = this.normalizeFormworkFields(config);
                 var validatorDefinitions = {};
                 var validators = {};
 
@@ -247,7 +247,7 @@ exports.default = function (ComposedComponent, config) {
                 var _config$titles = config.titles,
                     titles = _config$titles === undefined ? {} : _config$titles;
 
-                var formworkFields = this.normalizeFormworkElements(config);
+                var formworkFields = this.normalizeFormworkFields(config);
                 var templateDefinitions = {};
                 var fields = [];
                 var fieldsByName = {};

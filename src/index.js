@@ -20,10 +20,10 @@ export default function (ComposedComponent, config) {
             };
         }
 
-        normalizeFormworkElements = ({fields}) => isArray(fields) ? fields : map(keys(fields), key => ({name: key}));
+        normalizeFormworkFields = ({fields}) => isArray(fields) ? fields : map(keys(fields), key => ({name: key}));
 
         componentDidMount() {
-            const formworkFields = this.normalizeFormworkElements(config);
+            const formworkFields = this.normalizeFormworkFields(config);
             const validatorDefinitions = {};
             const validators = {};
 
@@ -87,15 +87,12 @@ export default function (ComposedComponent, config) {
                 <label className="formwork-validation-error">{this.validate(inputName)}</label>
             </fieldset>;
 
-        defaultInput = () => (type, inputName, onChange, data, additionalProperties) => {
+        defaultInput = () => (type, inputName, onChange, data, className, additionalProperties) => {
             const value = this.state.form[inputName];
-            const inputClassName = 'form-control';
 
             switch (type) {
-                case 'text':
-                    return <input type={type} name={inputName} onBlur={this.onBlur} onChange={onChange} value={value} className={inputClassName} {...additionalProperties}/>;
                 case 'select':
-                    return <select name={inputName} onChange={onChange} defaultValue={value || -1} className={inputClassName} {...additionalProperties}>
+                    return <select name={inputName} onChange={onChange} defaultValue={value || -1} className={className} {...additionalProperties}>
                         {isNil(value) ? <option value={-1} disabled hidden/> : ''}
                         {map(data, option => <option key={option.key} value={option.key}>{option.value}</option>)}
                     </select>;
@@ -106,13 +103,15 @@ export default function (ComposedComponent, config) {
                             option.value,
                             <br/>
                         ])}
-                    </div>
+                    </div>;
+                default:
+                    return <input type={type} name={inputName} onBlur={this.onBlur} onChange={onChange} value={value} className={className} {...additionalProperties}/>;
             }
         };
 
         generate() {
             const {titles = {}} = config;
-            const formworkFields = this.normalizeFormworkElements(config);
+            const formworkFields = this.normalizeFormworkFields(config);
             const templateDefinitions = {};
             const fields = [];
             const fieldsByName = {};
@@ -124,6 +123,7 @@ export default function (ComposedComponent, config) {
                     type = 'text',
                     input = this.defaultInput(),
                     title = titles[name] || this.titleFromName(name),
+                    className = 'form-control',
                     ...rest
                 } = field;
 
@@ -137,7 +137,7 @@ export default function (ComposedComponent, config) {
                     generateTemplate = this.defaultTemplate();
                 }
 
-                const formElement = generateTemplate(title, name, input(type, name, this.onChange, field.data, rest));
+                const formElement = generateTemplate(title, name, input(type, name, this.onChange, field.data, className, rest));
 
                 fields.push(formElement);
                 fieldsByName[name] = formElement;

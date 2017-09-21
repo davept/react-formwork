@@ -39,14 +39,68 @@ export default Formwork(MyForm, {
 });
 ```
 
-In the example above we pass our JS object `model` to the `Formwork` HoC.  We pull the generated HTML form fields, the submit button and our bound data object from `props.formwork`'
+In the example above we pass our JS object `model` to the `Formwork` HoC.  We pull the generated HTML form fields, the submit button and our bound data object from `props.formwork`
+
+# API
+
+### `Formwork(component, formDefinition)`
+
+Use `formDefinition` to generate HTML form elements and associated onChange databind and onBlur validation events then pass an array of these form fields to `component`.
+
+#### Arguments
+
+* `component` a `React.Component` class.
+* `formDefinition` this is an Object containing 2 properties:
+  - `fields` this is either an object where the property names will be used as form fields or an array of objects, each object definind a single form field.
+  - `[data]` optionally pass in an object with properties mathing form field names that containd ata. 
+
+#### `fields` (Object)
+* In the simplest case a plain old Javascript object; each property, where hasOwnProperty is true, will be used to generate an HTML text input field. 
+
+#### `fields` (Array)
+In this case each array element will be an object defining a single form field.  Each Object may contain the following properties:
+  - `name` (String) The name of the form field.  If no `title` is supplied this will also be formatted for use as the title.
+  - `[title]` (String) The title displayed above the form input field.
+  - `[template]` (Function) Returns the HTML used to wrap the form Input.
+  - `[input]` (Function) Returns the HTML input control used.
+  - `[validator]` (Object) Defines custom validation.
+  - `[className]` (String) A css class applied to the input control.
+  - `[type]` (String) One of the HTML input types: `text`, `radio`, `select`, `password`, etc...
+  - `[*]` Any other properties, such as `data-id`, `aria-described-by`, etc., will be added to the input control.
+
+#### `template` (Function)
+
+Parameters:
+* `labelText` (String) The form field label text as supplied in `Title` or generated from `name`
+* `inputName` (String) The name of the input control as supplied in `name`
+* `inputControl` This is the JSX input control.
+
+***Returns***
+* JSX
+
+#### `input` (Function)
+Used to define a custom input control.  Parameters:
+* `type` (String) Type as supplied in the field definition.
+* `inputName` (String) Name of the input control.
+* `onChange` (Function) Expects a React synthetic event.
+* `data` (String) Any data supplied from initial configuration.
+* `className` (String) A CSS class.
+* `additionalProperties` (Object) Any other properties supplied.
+
+***Returns***
+* JSX
+
+#### `validator` (Object)
+This object defines validation to be performed onBlur. It contains two fields:
+* `validate` (Function) Receives a single parameter `value` (String) and returns a (Boolean)
+* `message` (String) The error message to display. 
 
 #### Example, accessing elements by name
 
 In case you want to individually place the form fields:
 ```jsx harmony
 class MyForm extends Component {
-render() {
+    render() {
         const { fieldsByName } = this.props.formwork;
         return (
             <form>
@@ -63,7 +117,7 @@ render() {
     }
 }
 ```
-#### example, custom titles
+#### Example, custom titles
 
 ```jsx harmony
 class MyForm extends Component {
@@ -138,16 +192,10 @@ export default Formwork(MyForm, {
     ]
 });
 ```
-This example provides a custom HTML template to wrap the `name` HTML input.  It also provides a custom validator.  Note, the `email` field uses a string `name` as it's validator which refers back to the previously defined validator for the `name` field.  This means you only ever have to define templates and validators one time and then reuse. 
-
-#### Testing
-
-npm run test
-
-#### Create dist build
-
-npm run dist
+This example provides a custom HTML template to wrap the `name` HTML input.  It also provides a custom validator.  Note, the `email` field definition uses the string `name` as it's validator instead of an object, this tells Formwork to usethe previously defined validator from the `name` field definition.  This means you only ever have to define templates and validators one time and then reuse via string reference. 
 
 #### ToDo
 
+* Add a working validation example
+* Show passing through any additional props: placeholder, data-id, aria-describedby ...
 * Add functional tests for validation
