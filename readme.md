@@ -7,7 +7,7 @@
 * Install from npm:
 
 `npm install --save react-formwork`
-* Import:
+* Import into you code:
 
 `import Formwork from 'react-formwork'` 
 * Wrap a form component with the Formwork HoC:
@@ -48,14 +48,13 @@ In the example above we pass our JS object `model` to the `Formwork` HoC.  We pu
 `Formwork` uses `formDefinition` to generate HTML form elements and associated onChange databind and onBlur validation events then pass an array of these form fields to `component`.
 
 #### Arguments
-
 * `component` a `React.Component` class.
 * `formDefinition` this is an Object containing 2 properties:
   - `fields` this is either an object where the property names will be used as form fields or an array of objects, each object definind a single form field.
   - `[data]` optionally pass in an object with properties mathing form field names that containd ata. 
 
 #### `fields` (Object)
-* In the simplest case a plain old Javascript object; each property, where hasOwnProperty is true, will be used to generate an HTML text input field. 
+In the simplest case a plain old Javascript object; each property, where hasOwnProperty is true, will be used to generate an HTML text input field. 
 
 #### `fields` (Array)
 In this case each array element will be an object defining a single form field.  Each Object may contain the following properties:
@@ -66,7 +65,7 @@ In this case each array element will be an object defining a single form field. 
   - `[validator]` (Object) Defines custom validation.
   - `[className]` (String) A css class applied to the input control.
   - `[type]` (String) One of the HTML input types: `text`, `radio`, `select`, `password`, etc...
-  - `[*]` Any other properties, such as `data-id`, `aria-described-by`, etc., will be added to the input control.
+  - `[*]` Any other properties, such as `data-id`, `aria-describedby`, etc., will be added to the input control.
 
 #### `template` (Function)
 
@@ -204,6 +203,7 @@ npm run dist
 
 #### ToDo
 
+* Extract, parameterize and document all class names
 * Add a working validation example
 * Show passing through any additional props: placeholder, data-my-data-field, ...
 * Add functional tests for validation
