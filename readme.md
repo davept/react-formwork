@@ -96,10 +96,10 @@ This object defines validation to be performed onBlur. It contains two fields:
 
 ### `Formwork` injects 4 properties into the component, `this.props.formwork`
 
-* fields - (array) the HTML form fields.
-* fieldsByName - (object) a map of the HTML form fields indexed by `name`.
-* submit - An HTML submit button.
-* isFormValid - (bool) a flag indicating the validation state of the entire form.
+* `fields` - (array) the HTML form fields.
+* `fieldsByName` - (object) a map of the HTML form fields indexed by `name`.
+* `submit` - An HTML submit button.
+* `isFormValid` - (bool) a flag indicating the validation state of the entire form.
 
 #### Example, accessing elements by name
 
