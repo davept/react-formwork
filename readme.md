@@ -94,6 +94,13 @@ This object defines validation to be performed onBlur. It contains two fields:
 * `validate` (Function) Receives a single parameter `value` (String) and returns a (Boolean)
 * `message` (String) The error message to display. 
 
+### `Formwork` injects 4 properties into the component, `this.props.formwork`
+
+* fields - (array) the HTML form fields.
+* fieldsByName - (object) a map of the HTML form fields indexed by `name`.
+* submit - An HTML submit button.
+* isFormValid - (bool) a flag indicating the validation state of the entire form.
+
 #### Example, accessing elements by name
 
 In case you want to individually place the form fields:
@@ -191,6 +198,42 @@ export default Formwork(MyForm, {
 });
 ```
 This example provides a custom HTML template to wrap the `name` HTML input.  It also provides a custom validator.  Note, the `email` field definition uses the string `name` as it's validator instead of an object, this tells Formwork to usethe previously defined validator from the `name` field definition.  This means you only ever have to define templates and validators one time and then reuse via string reference. 
+
+#### Example, form validation
+Formwork contains a boolean flag `isFormValid` that represents the validity state of the entire form.
+```jsx harmony
+class MyForm extends Component {
+    onSubmit = e => {
+        e.preventDefault();
+        const {data, isFormValid} = this.props.formwork;
+        if (isFormValid) {
+            // Do something with: `data`
+        }
+    };
+    
+    render() {
+        const { fields, submit } = this.props.formwork;
+        return (
+            <form onSubmit={this.onSubmit}>
+                {fields}
+                {submit}
+            </form>
+        )
+    }
+}
+
+export default Formwork(MyForm, {
+    fields: [
+        {
+            name: 'email',
+            validator: {
+                validate: value => value.length > 2,
+                message: 'Length must be greater than 2 characters'
+            }
+        }
+    ]
+});
+```
 
 #### Example, arbitrary properties
 Any additional properties added to a `field` definition will be added to the input control.

@@ -135,8 +135,12 @@ exports.default = function (ComposedComponent, config) {
                     isValid: validate(value),
                     isTouched: true
                 })));
+                var isFormValid = true;
+                (0, _each2.default)(validators, function (v) {
+                    return isFormValid = isFormValid && v.isValid;
+                });
 
-                _this.setState({ validators: validators });
+                _this.setState({ validators: validators, isFormValid: isFormValid });
             };
 
             _this.onBlur = function (e) {
@@ -190,7 +194,8 @@ exports.default = function (ComposedComponent, config) {
                         case 'select':
                             return _react2.default.createElement(
                                 'select',
-                                _extends({ name: inputName, onChange: onChange, defaultValue: value || -1, className: className }, additionalProperties),
+                                _extends({ name: inputName, onChange: onChange, defaultValue: value || -1,
+                                    className: className }, additionalProperties),
                                 (0, _isNil2.default)(value) ? _react2.default.createElement('option', { value: -1, disabled: true, hidden: true }) : '',
                                 (0, _map2.default)(data, function (option) {
                                     return _react2.default.createElement(
@@ -205,11 +210,13 @@ exports.default = function (ComposedComponent, config) {
                                 'div',
                                 null,
                                 (0, _map2.default)(data, function (option) {
-                                    return [_react2.default.createElement('input', _extends({ type: 'radio', name: inputName, onChange: onChange, key: option.key, value: option.key }, additionalProperties)), option.value, _react2.default.createElement('br', null)];
+                                    return [_react2.default.createElement('input', _extends({ type: 'radio', name: inputName, onChange: onChange, key: option.key,
+                                        value: option.key }, additionalProperties)), option.value, _react2.default.createElement('br', null)];
                                 })
                             );
                         default:
-                            return _react2.default.createElement('input', _extends({ type: type, name: inputName, onBlur: _this.onBlur, onChange: onChange, value: value, className: className }, additionalProperties));
+                            return _react2.default.createElement('input', _extends({ type: type, name: inputName, onBlur: _this.onBlur, onChange: onChange, value: value,
+                                className: className }, additionalProperties));
                     }
                 };
             };
@@ -227,6 +234,9 @@ exports.default = function (ComposedComponent, config) {
                 var formworkFields = this.normalizeFormworkFields(config);
                 var validatorDefinitions = {};
                 var validators = {};
+                var form = this.state.form;
+
+                var isFormValid = true;
 
                 (0, _each2.default)(formworkFields, function (field) {
                     var name = field.name,
@@ -245,13 +255,15 @@ exports.default = function (ComposedComponent, config) {
                             }, message: '' };
                     }
 
+                    isFormValid = isFormValid && elementValidator.validate(form[name] || '');
+
                     validators[name] = _extends({}, elementValidator, {
                         isValid: true,
                         isTouched: false
                     });
                 });
 
-                this.setState({ validators: validators });
+                this.setState({ validators: validators, isFormValid: isFormValid });
             }
         }, {
             key: 'generate',
@@ -310,7 +322,10 @@ exports.default = function (ComposedComponent, config) {
         }, {
             key: 'render',
             value: function render() {
-                return _react2.default.createElement(ComposedComponent, _extends({}, this.props, { formwork: _extends({}, this.generate(), { data: this.state.form }) }));
+                return _react2.default.createElement(ComposedComponent, _extends({}, this.props, { formwork: _extends({}, this.generate(), {
+                        data: this.state.form,
+                        isFormValid: this.state.isFormValid
+                    }) }));
             }
         }]);
 

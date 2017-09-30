@@ -26,6 +26,8 @@ export default function (ComposedComponent, config) {
             const formworkFields = this.normalizeFormworkFields(config);
             const validatorDefinitions = {};
             const validators = {};
+            const {form} = this.state;
+            let isFormValid = true;
 
             each(formworkFields, field => {
                 const {name, validator} = field;
@@ -37,8 +39,10 @@ export default function (ComposedComponent, config) {
                 } else if (isString(validator)) {
                     elementValidator = validatorDefinitions[validator];
                 } else {
-                    elementValidator = { validate: v => true, message: ''};
+                    elementValidator = {validate: v => true, message: ''};
                 }
+
+                isFormValid = isFormValid && elementValidator.validate(form[name] || '');
 
                 validators[name] = {
                     ...elementValidator,
@@ -47,7 +51,7 @@ export default function (ComposedComponent, config) {
                 };
             });
 
-            this.setState({validators});
+            this.setState({validators, isFormValid});
         }
 
         titleFromName = name => {
@@ -79,8 +83,10 @@ export default function (ComposedComponent, config) {
                     isTouched: true
                 }
             };
+            let isFormValid = true;
+            each(validators, v => isFormValid = isFormValid && v.isValid);
 
-            this.setState({validators});
+            this.setState({validators, isFormValid});
         };
 
         onBlur = e => {
@@ -111,20 +117,23 @@ export default function (ComposedComponent, config) {
 
             switch (type) {
                 case 'select':
-                    return <select name={inputName} onChange={onChange} defaultValue={value || -1} className={className} {...additionalProperties}>
+                    return <select name={inputName} onChange={onChange} defaultValue={value || -1}
+                                   className={className} {...additionalProperties}>
                         {isNil(value) ? <option value={-1} disabled hidden/> : ''}
                         {map(data, option => <option key={option.key} value={option.key}>{option.value}</option>)}
                     </select>;
                 case 'radio':
                     return <div>
                         {map(data, option => [
-                            <input type="radio" name={inputName} onChange={onChange} key={option.key} value={option.key} {...additionalProperties}/>,
+                            <input type="radio" name={inputName} onChange={onChange} key={option.key}
+                                   value={option.key} {...additionalProperties}/>,
                             option.value,
                             <br/>
                         ])}
                     </div>;
                 default:
-                    return <input type={type} name={inputName} onBlur={this.onBlur} onChange={onChange} value={value} className={className} {...additionalProperties}/>;
+                    return <input type={type} name={inputName} onBlur={this.onBlur} onChange={onChange} value={value}
+                                  className={className} {...additionalProperties}/>;
             }
         };
 
@@ -172,7 +181,11 @@ export default function (ComposedComponent, config) {
         }
 
         render() {
-            return <ComposedComponent {...this.props} formwork={{...this.generate(), data: this.state.form}}/>
+            return <ComposedComponent {...this.props} formwork={{
+                ...this.generate(),
+                data: this.state.form,
+                isFormValid: this.state.isFormValid
+            }}/>
         }
     }
 
