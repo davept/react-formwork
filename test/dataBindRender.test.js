@@ -2,7 +2,7 @@ import React from 'react';
 import DataBindForm from './forms/dataBindForm';
 import renderer from 'react-test-renderer';
 
-test('Test a simple render', () => {
+test('Render a form with data binding', () => {
     const component = renderer.create(
         <DataBindForm />
     );

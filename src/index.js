@@ -40,7 +40,11 @@ export default function (ComposedComponent, config) {
                     elementValidator = { validate: v => true, message: ''};
                 }
 
-                validators[name] = {...elementValidator, isValid: true};
+                validators[name] = {
+                    ...elementValidator,
+                    isValid: true,
+                    isTouched: false
+                };
             });
 
             this.setState({validators});
@@ -54,41 +58,56 @@ export default function (ComposedComponent, config) {
             return map(name.split(/(?=[A-Z])|\s/), s => capitalize(s)).join(' ');
         };
 
-        validate = inputName => {
-            const {isValid, message} = this.state.validators[inputName] || {};
-            if (!isValid) {
-                return message;
+        err = name => {
+            const {isValid, message} = this.state.validators[name] || {};
+            if (isValid) {
+                return '';
             }
 
-            return '';
+            return message;
+        };
+
+        validate = (name, value) => {
+            const stateValidators = this.state.validators;
+            const validator = stateValidators[name];
+            const {validate} = validator;
+            const validators = {
+                ...stateValidators,
+                [name]: {
+                    ...validator,
+                    isValid: validate(value),
+                    isTouched: true
+                }
+            };
+
+            this.setState({validators});
         };
 
         onBlur = e => {
             const {name, value} = e.target;
-            const stateValidators = this.state.validators;
-            const validator = stateValidators[name];
-            const {validate} = validator;
-            const validators = {...stateValidators, [name]: {...validator, isValid: validate(value)}};
-
-            this.setState({validators});
+            this.validate(name, value);
         };
 
         onChange = e => {
             const {name, value} = e.target;
             const form = {...this.state.form, [name]: value};
-
-            this.setState({form});
+            const {isTouched} = this.state.validators[name];
+            this.setState({form}, () => {
+                if (isTouched) {
+                    this.validate(name, value);
+                }
+            });
         };
 
         defaultTemplate = () => (legendText, inputName, inputControl) =>
             <fieldset key={inputName} className="form-group">
                 <legend>{legendText}</legend>
                 {inputControl}
-                <label className="formwork-validation-error">{this.validate(inputName)}</label>
+                <label className="formwork-validation-error">{this.err(inputName)}</label>
             </fieldset>;
 
         defaultInput = () => (type, inputName, onChange, data, className, additionalProperties) => {
-            const value = this.state.form[inputName];
+            const value = this.state.form[inputName] || '';
 
             switch (type) {
                 case 'select':
@@ -126,6 +145,8 @@ export default function (ComposedComponent, config) {
                     className = 'form-control',
                     ...rest
                 } = field;
+
+                delete rest.validator;
 
                 let generateTemplate;
                 if (isFunction(template)) {

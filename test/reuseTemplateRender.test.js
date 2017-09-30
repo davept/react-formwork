@@ -2,7 +2,7 @@ import React from 'react';
 import ReuseTemplate from './forms/reuseTemplateForm';
 import renderer from 'react-test-renderer';
 
-test('Test a simple render', () => {
+test('Render a form with a reused template', () => {
     const component = renderer.create(
         <ReuseTemplate />
     );

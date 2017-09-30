@@ -114,16 +114,29 @@ exports.default = function (ComposedComponent, config) {
                 }).join(' ');
             };
 
-            _this.validate = function (inputName) {
-                var _ref2 = _this.state.validators[inputName] || {},
+            _this.err = function (name) {
+                var _ref2 = _this.state.validators[name] || {},
                     isValid = _ref2.isValid,
                     message = _ref2.message;
 
-                if (!isValid) {
-                    return message;
+                if (isValid) {
+                    return '';
                 }
 
-                return '';
+                return message;
+            };
+
+            _this.validate = function (name, value) {
+                var stateValidators = _this.state.validators;
+                var validator = stateValidators[name];
+                var validate = validator.validate;
+
+                var validators = _extends({}, stateValidators, _defineProperty({}, name, _extends({}, validator, {
+                    isValid: validate(value),
+                    isTouched: true
+                })));
+
+                _this.setState({ validators: validators });
             };
 
             _this.onBlur = function (e) {
@@ -131,13 +144,7 @@ exports.default = function (ComposedComponent, config) {
                     name = _e$target.name,
                     value = _e$target.value;
 
-                var stateValidators = _this.state.validators;
-                var validator = stateValidators[name];
-                var validate = validator.validate;
-
-                var validators = _extends({}, stateValidators, _defineProperty({}, name, _extends({}, validator, { isValid: validate(value) })));
-
-                _this.setState({ validators: validators });
+                _this.validate(name, value);
             };
 
             _this.onChange = function (e) {
@@ -146,8 +153,13 @@ exports.default = function (ComposedComponent, config) {
                     value = _e$target2.value;
 
                 var form = _extends({}, _this.state.form, _defineProperty({}, name, value));
+                var isTouched = _this.state.validators[name].isTouched;
 
-                _this.setState({ form: form });
+                _this.setState({ form: form }, function () {
+                    if (isTouched) {
+                        _this.validate(name, value);
+                    }
+                });
             };
 
             _this.defaultTemplate = function () {
@@ -164,22 +176,21 @@ exports.default = function (ComposedComponent, config) {
                         _react2.default.createElement(
                             'label',
                             { className: 'formwork-validation-error' },
-                            _this.validate(inputName)
+                            _this.err(inputName)
                         )
                     );
                 };
             };
 
             _this.defaultInput = function () {
-                return function (type, inputName, onChange, data, additionalProperties) {
-                    var value = _this.state.form[inputName];
-                    var inputClassName = 'form-control';
+                return function (type, inputName, onChange, data, className, additionalProperties) {
+                    var value = _this.state.form[inputName] || '';
 
                     switch (type) {
                         case 'select':
                             return _react2.default.createElement(
                                 'select',
-                                _extends({ name: inputName, onChange: onChange, defaultValue: value || -1, className: inputClassName }, additionalProperties),
+                                _extends({ name: inputName, onChange: onChange, defaultValue: value || -1, className: className }, additionalProperties),
                                 (0, _isNil2.default)(value) ? _react2.default.createElement('option', { value: -1, disabled: true, hidden: true }) : '',
                                 (0, _map2.default)(data, function (option) {
                                     return _react2.default.createElement(
@@ -198,7 +209,7 @@ exports.default = function (ComposedComponent, config) {
                                 })
                             );
                         default:
-                            return _react2.default.createElement('input', _extends({ type: type, name: inputName, onBlur: _this.onBlur, onChange: onChange, value: value, className: inputClassName }, additionalProperties));
+                            return _react2.default.createElement('input', _extends({ type: type, name: inputName, onBlur: _this.onBlur, onChange: onChange, value: value, className: className }, additionalProperties));
                     }
                 };
             };
@@ -234,7 +245,10 @@ exports.default = function (ComposedComponent, config) {
                             }, message: '' };
                     }
 
-                    validators[name] = _extends({}, elementValidator, { isValid: true });
+                    validators[name] = _extends({}, elementValidator, {
+                        isValid: true,
+                        isTouched: false
+                    });
                 });
 
                 this.setState({ validators: validators });
@@ -261,7 +275,11 @@ exports.default = function (ComposedComponent, config) {
                         input = _field$input === undefined ? _this2.defaultInput() : _field$input,
                         _field$title = field.title,
                         title = _field$title === undefined ? titles[name] || _this2.titleFromName(name) : _field$title,
-                        rest = _objectWithoutProperties(field, ['name', 'template', 'type', 'input', 'title']);
+                        _field$className = field.className,
+                        className = _field$className === undefined ? 'form-control' : _field$className,
+                        rest = _objectWithoutProperties(field, ['name', 'template', 'type', 'input', 'title', 'className']);
+
+                    delete rest.validator;
 
                     var generateTemplate = void 0;
                     if ((0, _isFunction2.default)(template)) {
@@ -273,7 +291,7 @@ exports.default = function (ComposedComponent, config) {
                         generateTemplate = _this2.defaultTemplate();
                     }
 
-                    var formElement = generateTemplate(title, name, input(type, name, _this2.onChange, field.data, rest));
+                    var formElement = generateTemplate(title, name, input(type, name, _this2.onChange, field.data, className, rest));
 
                     fields.push(formElement);
                     fieldsByName[name] = formElement;

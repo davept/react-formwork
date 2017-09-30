@@ -146,7 +146,6 @@ By default names will be split by capital letter and then capitalised.  When thi
 #### Example, customising form elements
 To fully customise the form fields instead of depending on default conventions, supply an array of objects to the `fields` property.
 ```jsx harmony
-
 export default Formwork(MyForm, {
     fields: [
         {
@@ -193,6 +192,25 @@ export default Formwork(MyForm, {
 ```
 This example provides a custom HTML template to wrap the `name` HTML input.  It also provides a custom validator.  Note, the `email` field definition uses the string `name` as it's validator instead of an object, this tells Formwork to usethe previously defined validator from the `name` field definition.  This means you only ever have to define templates and validators one time and then reuse via string reference. 
 
+#### Example, arbitrary properties
+Any additional properties added to a `field` definition will be added to the input control.
+```jsx harmony
+export default Formwork(MyForm, {
+    fields: [
+        {
+            name: 'email',
+            'data-entityId': '101',
+            'aria-describedby': 'info'
+        }
+    ]
+});
+```
+output:
+```html
+<input type="text" name="email" data-entityId="101" aria-describedby="info" class="form-control">
+```
+
+
 #### Testing
 
 npm run test
@@ -204,6 +222,4 @@ npm run dist
 #### ToDo
 
 * Extract, parameterize and document all class names
-* Add a working validation example
-* Show passing through any additional props: placeholder, data-my-data-field, ...
 * Add functional tests for validation

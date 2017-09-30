@@ -17,7 +17,7 @@ exports[`Test a simple render 1`] = `
         onBlur={[Function]}
         onChange={[Function]}
         type="text"
-        value={undefined}
+        value=""
       />
       <label
         className="formwork-validation-error"
@@ -37,7 +37,7 @@ exports[`Test a simple render 1`] = `
         onBlur={[Function]}
         onChange={[Function]}
         type="text"
-        value={undefined}
+        value=""
       />
       <label
         className="formwork-validation-error"

@@ -35,7 +35,8 @@ export default Formwork(ComplexForm, {
             validator: {
                 validate: value => value.length > 2,
                 message: 'Length must be greater than 2 characters'
-            }
+            },
+            'data-entityId': '101'
         },
         {
             name: 'email',
