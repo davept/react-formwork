@@ -54,6 +54,7 @@ exports[`Render a form with a reused template 1`] = `
       </p>
     </div>
     <button
+      disabled={false}
       type="submit"
     >
       Submit

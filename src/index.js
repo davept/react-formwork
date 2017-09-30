@@ -176,7 +176,7 @@ export default function (ComposedComponent, config) {
             return {
                 fields,
                 fieldsByName,
-                submit: <button type="submit">Submit</button>
+                submit: <button type="submit" disabled={!this.state.isFormValid}>Submit</button>
             };
         }
 

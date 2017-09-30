@@ -47,7 +47,7 @@ In the example above we pass our JS object `model` to the `Formwork` HoC.  We pu
 
 `Formwork` uses `formDefinition` to generate HTML form elements and associated onChange databind and onBlur validation events then pass an array of these form fields to `component`.
 
-#### Arguments
+#### Arguments:
 * `component` a `React.Component` class.
 * `formDefinition` this is an Object containing 2 properties:
   - `fields` this is either an object where the property names will be used as form fields or an array of objects, each object definind a single form field.
@@ -94,12 +94,12 @@ This object defines validation to be performed onBlur. It contains two fields:
 * `validate` (Function) Receives a single parameter `value` (String) and returns a (Boolean)
 * `message` (String) The error message to display. 
 
-### `Formwork` injects 4 properties into the component, `this.props.formwork`
+### `Formwork` injects 4 properties into the wrapped component, `this.props.formwork`
 
-* `fields` - (array) the HTML form fields.
-* `fieldsByName` - (object) a map of the HTML form fields indexed by `name`.
+* `fields` - (Array) The HTML form fields.
+* `fieldsByName` - (Object) A map of the HTML form fields indexed by `name`.
 * `submit` - An HTML submit button.
-* `isFormValid` - (bool) a flag indicating the validation state of the entire form.
+* `isFormValid` - (Bool) A flag indicating the validation state of the entire form.
 
 #### Example, accessing elements by name
 

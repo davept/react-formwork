@@ -254,6 +254,7 @@ exports[`Render a form with validation 1`] = `
       </fieldset>
     </div>
     <button
+      disabled={false}
       type="submit"
     >
       Submit

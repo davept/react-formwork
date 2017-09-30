@@ -314,7 +314,7 @@ exports.default = function (ComposedComponent, config) {
                     fieldsByName: fieldsByName,
                     submit: _react2.default.createElement(
                         'button',
-                        { type: 'submit' },
+                        { type: 'submit', disabled: !this.state.isFormValid },
                         'Submit'
                     )
                 };
