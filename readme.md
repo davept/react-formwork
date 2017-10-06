@@ -92,7 +92,7 @@ Used to define a custom input control.  Parameters:
 * `inputName` (String) Name of the input control.
 * `onChange` (Function) Expects a React synthetic event.
 * `data` (String) Any data supplied from initial configuration.
-* `className` (String) A CSS class.
+* `css` (Object|String) A React CSS object definition or a string CSS class name.
 * `additionalProperties` (Object) Any other properties supplied.
 
 ***Returns***
@@ -276,7 +276,6 @@ output:
 <input type="text" name="email" data-entityId="101" aria-describedby="info" class="form-control">
 ```
 
-
 #### Testing
 
 npm run test
@@ -287,5 +286,4 @@ npm run dist
 
 #### ToDo
 
-* Extract, parameterize and document all class names
 * Add functional tests for validation
