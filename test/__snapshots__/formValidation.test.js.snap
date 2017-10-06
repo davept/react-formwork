@@ -21,7 +21,6 @@ exports[`Render a form with validation 1`] = `
       </p>
       <p>
         <input
-          className="form-control"
           data-entityId="101"
           name="name"
           onBlur={[Function]}
@@ -31,74 +30,56 @@ exports[`Render a form with validation 1`] = `
         />
       </p>
     </div>
-    <fieldset
-      className="form-group"
-    >
+    <fieldset>
       <legend>
         Email
       </legend>
       <input
-        className="form-control"
         name="email"
         onBlur={[Function]}
         onChange={[Function]}
         type="text"
         value="a@b.c"
       />
-      <label
-        className="formwork-validation-error"
-      >
+      <label>
         
       </label>
     </fieldset>
-    <fieldset
-      className="form-group"
-    >
+    <fieldset>
       <legend>
         Job Title
       </legend>
       <input
-        className="form-control"
         name="jobTitle"
         onBlur={[Function]}
         onChange={[Function]}
         type="text"
         value="Developer"
       />
-      <label
-        className="formwork-validation-error"
-      >
+      <label>
         
       </label>
     </fieldset>
-    <fieldset
-      className="form-group"
-    >
+    <fieldset>
       <legend>
         National Insurance Number
       </legend>
       <input
-        className="form-control"
         name="nationalInsuranceNumber"
         onBlur={[Function]}
         onChange={[Function]}
         type="text"
         value="abc123"
       />
-      <label
-        className="formwork-validation-error"
-      >
+      <label>
         
       </label>
     </fieldset>
-    <fieldset
-      className="form-group"
-    >
+    <fieldset>
       <legend>
         Heard Of Us
       </legend>
       <select
-        className="form-control"
         data={
           Array [
             Object {
@@ -136,15 +117,11 @@ exports[`Render a form with validation 1`] = `
           Web
         </option>
       </select>
-      <label
-        className="formwork-validation-error"
-      >
+      <label>
         
       </label>
     </fieldset>
-    <fieldset
-      className="form-group"
-    >
+    <fieldset>
       <legend>
         Industry
       </legend>
@@ -222,9 +199,7 @@ exports[`Render a form with validation 1`] = `
         Leisure
         <br />
       </div>
-      <label
-        className="formwork-validation-error"
-      >
+      <label>
         
       </label>
     </fieldset>
@@ -232,23 +207,18 @@ exports[`Render a form with validation 1`] = `
       <p>
         Can we get an individual element by name?
       </p>
-      <fieldset
-        className="form-group"
-      >
+      <fieldset>
         <legend>
           Email
         </legend>
         <input
-          className="form-control"
           name="email"
           onBlur={[Function]}
           onChange={[Function]}
           type="text"
           value="a@b.c"
         />
-        <label
-          className="formwork-validation-error"
-        >
+        <label>
           
         </label>
       </fieldset>

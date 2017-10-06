@@ -5,43 +5,33 @@ exports[`Test a simple render 1`] = `
   <form
     name="simple-form"
   >
-    <fieldset
-      className="form-group"
-    >
+    <fieldset>
       <legend>
         Name
       </legend>
       <input
-        className="form-control"
         name="name"
         onBlur={[Function]}
         onChange={[Function]}
         type="text"
         value=""
       />
-      <label
-        className="formwork-validation-error"
-      >
+      <label>
         
       </label>
     </fieldset>
-    <fieldset
-      className="form-group"
-    >
+    <fieldset>
       <legend>
         Email
       </legend>
       <input
-        className="form-control"
         name="email"
         onBlur={[Function]}
         onChange={[Function]}
         type="text"
         value=""
       />
-      <label
-        className="formwork-validation-error"
-      >
+      <label>
         
       </label>
     </fieldset>

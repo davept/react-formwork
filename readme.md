@@ -49,23 +49,32 @@ In the example above we pass our JS object `model` to the `Formwork` HoC.  We pu
 
 #### Arguments:
 * `component` a `React.Component` class.
-* `formDefinition` this is an Object containing 2 properties:
-  - `fields` this is either an object where the property names will be used as form fields or an array of objects, each object definind a single form field.
-  - `[data]` optionally pass in an object with properties mathing form field names that containd ata. 
+* `formDefinition` this is an Object containing these properties:
+  - `[name]` (String) An optional name for the form definition; returned in props.formwork.
+  - `fields` (Object|Array) This is either an object where the property names will be used as form fields or an array of objects, each object definind a single form field.
+  - `[data]` (Object) Optionally pass in an object with properties mathing form field names that containd ata. 
+  - `[css]` (Object) Optional object containing CSS definitions or class names for the form elements.
 
 #### `fields` (Object)
 In the simplest case a plain old Javascript object; each property, where hasOwnProperty is true, will be used to generate an HTML text input field. 
 
 #### `fields` (Array)
 In this case each array element will be an object defining a single form field.  Each Object may contain the following properties:
-  - `name` (String) The name of the form field.  If no `title` is supplied this will also be formatted for use as the title.
-  - `[title]` (String) The title displayed above the form input field.
-  - `[template]` (Function) Returns the HTML used to wrap the form Input.
-  - `[input]` (Function) Returns the HTML input control used.
-  - `[validator]` (Object) Defines custom validation.
-  - `[className]` (String) A css class applied to the input control.
-  - `[type]` (String) One of the HTML input types: `text`, `radio`, `select`, `password`, etc...
-  - `[*]` Any other properties, such as `data-id`, `aria-describedby`, etc., will be added to the input control.
+* `name` (String) The name of the form field.  If no `title` is supplied this will also be formatted for use as the title.
+* `[title]` (String) The title displayed above the form input field.
+* `[template]` (Function) Returns the HTML used to wrap the form Input.
+* `[input]` (Function) Returns the HTML input control used.
+* `[validator]` (Object) Defines custom validation.
+* `[type]` (String) One of the HTML input types: `text`, `radio`, `select`, `password`, etc...
+* `[*]` Any other properties, such as `data-id`, `aria-describedby`, etc., will be added to the input control.
+
+#### css (Object)
+Contains 5 optional fields which may be a string representing a CSS class name or an object representing a React inline CSS definition.
+* `[fieldset]` (Object|String) CSS applied to the fieldset HTML element wrapping each form field.
+* `[legend]` (Object|String) CSS applied to the legend HTML element containing the form field title.
+* `[input]` (Object|String) CSS applied to the HTML input element.
+* `[error]` (Object|String) CSS applied to the validation error label.
+* `[submit]` (Object|String) CSS applied to the submit button.
 
 #### `template` (Function)
 
@@ -232,6 +241,20 @@ export default Formwork(MyForm, {
             }
         }
     ]
+});
+```
+
+#### Example, CSS
+```jsx harmony
+export default Formwork(FormCss, {
+    fields: model,
+	css: {
+		fieldset: 'blue-background',
+		legend: 'orange-background',
+		input: 'green-background',
+		error: { 'backgroundColor': '#ff0000' },
+		submit: 'yellow-background'
+	}
 });
 ```
 

@@ -54,13 +54,25 @@ export default function (ComposedComponent, config) {
             this.setState({validators, isFormValid});
         }
 
-        titleFromName = name => {
+        titleFromName(name) {
             if (isNil(name) || name === '') {
                 return '';
             }
 
             return map(name.split(/(?=[A-Z])|\s/), s => capitalize(s)).join(' ');
-        };
+        }
+		
+		elementCss = style => {
+			if (isObject(style)) {
+				return {style};
+			}
+			
+			if (isString(style)) {
+				return {className: style};
+			}
+			
+			return {};
+		};
 
         err = name => {
             const {isValid, message} = this.state.validators[name] || {};
@@ -105,20 +117,19 @@ export default function (ComposedComponent, config) {
             });
         };
 
-        defaultTemplate = () => (legendText, inputName, inputControl) =>
-            <fieldset key={inputName} className="form-group">
-                <legend>{legendText}</legend>
+        defaultTemplate = () => (legendText, inputName, inputControl, fieldSetCss = {}, legendCss = {}, errorCss = {}) =>
+            <fieldset key={inputName} {...fieldSetCss}>
+                <legend {...legendCss}>{legendText}</legend>
                 {inputControl}
-                <label className="formwork-validation-error">{this.err(inputName)}</label>
+                <label {...errorCss}>{this.err(inputName)}</label>
             </fieldset>;
 
-        defaultInput = () => (type, inputName, onChange, data, className, additionalProperties) => {
+        defaultInput = () => (type, inputName, onChange, data, css, additionalProperties) => {
             const value = this.state.form[inputName] || '';
 
             switch (type) {
                 case 'select':
-                    return <select name={inputName} onChange={onChange} defaultValue={value || -1}
-                                   className={className} {...additionalProperties}>
+                    return <select name={inputName} onChange={onChange} defaultValue={value || -1} {...css} {...additionalProperties}>
                         {isNil(value) ? <option value={-1} disabled hidden/> : ''}
                         {map(data, option => <option key={option.key} value={option.key}>{option.value}</option>)}
                     </select>;
@@ -132,13 +143,12 @@ export default function (ComposedComponent, config) {
                         ])}
                     </div>;
                 default:
-                    return <input type={type} name={inputName} onBlur={this.onBlur} onChange={onChange} value={value}
-                                  className={className} {...additionalProperties}/>;
+                    return <input type={type} name={inputName} onBlur={this.onBlur} onChange={onChange} value={value} {...css} {...additionalProperties}/>;
             }
         };
 
         generate() {
-            const {titles = {}} = config;
+            const {titles = {}, css = {}} = config;
             const formworkFields = this.normalizeFormworkFields(config);
             const templateDefinitions = {};
             const fields = [];
@@ -151,7 +161,6 @@ export default function (ComposedComponent, config) {
                     type = 'text',
                     input = this.defaultInput(),
                     title = titles[name] || this.titleFromName(name),
-                    className = 'form-control',
                     ...rest
                 } = field;
 
@@ -167,7 +176,13 @@ export default function (ComposedComponent, config) {
                     generateTemplate = this.defaultTemplate();
                 }
 
-                const formElement = generateTemplate(title, name, input(type, name, this.onChange, field.data, className, rest));
+                const formElement = generateTemplate(
+					title,
+					name,
+					input(type, name, this.onChange, field.data, this.elementCss(css.input), rest),
+					this.elementCss(css.fieldset),
+					this.elementCss(css.legend),
+					this.elementCss(css.error));
 
                 fields.push(formElement);
                 fieldsByName[name] = formElement;
@@ -176,7 +191,7 @@ export default function (ComposedComponent, config) {
             return {
                 fields,
                 fieldsByName,
-                submit: <button type="submit" disabled={!this.state.isFormValid}>Submit</button>
+                submit: <button type="submit" disabled={!this.state.isFormValid} {...this.elementCss(css.submit)}>Submit</button>
             };
         }
 
@@ -184,7 +199,8 @@ export default function (ComposedComponent, config) {
             return <ComposedComponent {...this.props} formwork={{
                 ...this.generate(),
                 data: this.state.form,
-                isFormValid: this.state.isFormValid
+                isFormValid: this.state.isFormValid,
+				name: config.name || ''
             }}/>
         }
     }
