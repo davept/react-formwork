@@ -104,14 +104,16 @@ exports.default = function (ComposedComponent, config) {
                 });
             };
 
-            _this.titleFromName = function (name) {
-                if ((0, _isNil2.default)(name) || name === '') {
-                    return '';
+            _this.elementCss = function (style) {
+                if ((0, _isObject2.default)(style)) {
+                    return { style: style };
                 }
 
-                return (0, _map2.default)(name.split(/(?=[A-Z])|\s/), function (s) {
-                    return (0, _capitalize2.default)(s);
-                }).join(' ');
+                if ((0, _isString2.default)(style)) {
+                    return { className: style };
+                }
+
+                return {};
             };
 
             _this.err = function (name) {
@@ -168,18 +170,21 @@ exports.default = function (ComposedComponent, config) {
 
             _this.defaultTemplate = function () {
                 return function (legendText, inputName, inputControl) {
+                    var fieldSetCss = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+                    var legendCss = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
+                    var errorCss = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {};
                     return _react2.default.createElement(
                         'fieldset',
-                        { key: inputName, className: 'form-group' },
+                        _extends({ key: inputName }, fieldSetCss),
                         _react2.default.createElement(
                             'legend',
-                            null,
+                            legendCss,
                             legendText
                         ),
                         inputControl,
                         _react2.default.createElement(
                             'label',
-                            { className: 'formwork-validation-error' },
+                            errorCss,
                             _this.err(inputName)
                         )
                     );
@@ -187,15 +192,14 @@ exports.default = function (ComposedComponent, config) {
             };
 
             _this.defaultInput = function () {
-                return function (type, inputName, onChange, data, className, additionalProperties) {
+                return function (type, inputName, onChange, data, css, additionalProperties) {
                     var value = _this.state.form[inputName] || '';
 
                     switch (type) {
                         case 'select':
                             return _react2.default.createElement(
                                 'select',
-                                _extends({ name: inputName, onChange: onChange, defaultValue: value || -1,
-                                    className: className }, additionalProperties),
+                                _extends({ name: inputName, onChange: onChange, defaultValue: value || -1 }, css, additionalProperties),
                                 (0, _isNil2.default)(value) ? _react2.default.createElement('option', { value: -1, disabled: true, hidden: true }) : '',
                                 (0, _map2.default)(data, function (option) {
                                     return _react2.default.createElement(
@@ -215,8 +219,7 @@ exports.default = function (ComposedComponent, config) {
                                 })
                             );
                         default:
-                            return _react2.default.createElement('input', _extends({ type: type, name: inputName, onBlur: _this.onBlur, onChange: onChange, value: value,
-                                className: className }, additionalProperties));
+                            return _react2.default.createElement('input', _extends({ type: type, name: inputName, onBlur: _this.onBlur, onChange: onChange, value: value }, css, additionalProperties));
                     }
                 };
             };
@@ -266,12 +269,25 @@ exports.default = function (ComposedComponent, config) {
                 this.setState({ validators: validators, isFormValid: isFormValid });
             }
         }, {
+            key: 'titleFromName',
+            value: function titleFromName(name) {
+                if ((0, _isNil2.default)(name) || name === '') {
+                    return '';
+                }
+
+                return (0, _map2.default)(name.split(/(?=[A-Z])|\s/), function (s) {
+                    return (0, _capitalize2.default)(s);
+                }).join(' ');
+            }
+        }, {
             key: 'generate',
             value: function generate() {
                 var _this2 = this;
 
                 var _config$titles = config.titles,
-                    titles = _config$titles === undefined ? {} : _config$titles;
+                    titles = _config$titles === undefined ? {} : _config$titles,
+                    _config$css = config.css,
+                    css = _config$css === undefined ? {} : _config$css;
 
                 var formworkFields = this.normalizeFormworkFields(config);
                 var templateDefinitions = {};
@@ -287,9 +303,7 @@ exports.default = function (ComposedComponent, config) {
                         input = _field$input === undefined ? _this2.defaultInput() : _field$input,
                         _field$title = field.title,
                         title = _field$title === undefined ? titles[name] || _this2.titleFromName(name) : _field$title,
-                        _field$className = field.className,
-                        className = _field$className === undefined ? 'form-control' : _field$className,
-                        rest = _objectWithoutProperties(field, ['name', 'template', 'type', 'input', 'title', 'className']);
+                        rest = _objectWithoutProperties(field, ['name', 'template', 'type', 'input', 'title']);
 
                     delete rest.validator;
 
@@ -303,7 +317,7 @@ exports.default = function (ComposedComponent, config) {
                         generateTemplate = _this2.defaultTemplate();
                     }
 
-                    var formElement = generateTemplate(title, name, input(type, name, _this2.onChange, field.data, className, rest));
+                    var formElement = generateTemplate(title, name, input(type, name, _this2.onChange, field.data, _this2.elementCss(css.input), rest), _this2.elementCss(css.fieldset), _this2.elementCss(css.legend), _this2.elementCss(css.error));
 
                     fields.push(formElement);
                     fieldsByName[name] = formElement;
@@ -314,7 +328,7 @@ exports.default = function (ComposedComponent, config) {
                     fieldsByName: fieldsByName,
                     submit: _react2.default.createElement(
                         'button',
-                        { type: 'submit', disabled: !this.state.isFormValid },
+                        _extends({ type: 'submit', disabled: !this.state.isFormValid }, this.elementCss(css.submit)),
                         'Submit'
                     )
                 };
@@ -324,7 +338,8 @@ exports.default = function (ComposedComponent, config) {
             value: function render() {
                 return _react2.default.createElement(ComposedComponent, _extends({}, this.props, { formwork: _extends({}, this.generate(), {
                         data: this.state.form,
-                        isFormValid: this.state.isFormValid
+                        isFormValid: this.state.isFormValid,
+                        name: config.name || ''
                     }) }));
             }
         }]);
