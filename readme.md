@@ -51,8 +51,8 @@ In the example above we pass our JS object `model` to the `Formwork` HoC.  We pu
 * `component` a `React.Component` class.
 * `formDefinition` this is an Object containing these properties:
   - `[name]` (String) An optional name for the form definition; returned in props.formwork.
-  - `fields` (Object|Array) This is either an object where the property names will be used as form fields or an array of objects, each object definind a single form field.
-  - `[data]` (Object) Optionally pass in an object with properties mathing form field names that containd ata. 
+  - `fields` (Object|Array) This is either an object where the property names represent form fields or an array of objects, each object defining a field.
+  - `[data]` (Object) Optionally supply an object with properties matching form field names containing data.
   - `[css]` (Object) Optional object containing CSS definitions or class names for the form elements.
 
 #### `fields` (Object)
