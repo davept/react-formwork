@@ -249,16 +249,16 @@ export default Formwork(MyForm, {
 ```jsx harmony
 export default Formwork(FormCss, {
     fields: model,
-	css: {
-		fieldset: 'blue-background',
-		legend: 'orange-background',
-		input: 'green-background',
-		error: {
+    css: {
+        fieldset: 'blue-background',
+        legend: 'orange-background',
+        input: 'green-background',
+        error: {
             'backgroundColor': '#ff0000',
             'color': '#000'
-		},
-		submit: 'yellow-background'
-	}
+        },
+        submit: 'yellow-background'
+    }
 });
 ```
 
