@@ -103,12 +103,13 @@ This object defines validation to be performed onBlur. It contains two fields:
 * `validate` (Function) Receives a single parameter `value` (String) and returns a (Boolean)
 * `message` (String) The error message to display. 
 
-### `Formwork` injects 4 properties into the wrapped component, `this.props.formwork`
+### `Formwork` injects these properties into the wrapped component, `this.props.formwork`
 
-* `fields` - (Array) The HTML form fields.
-* `fieldsByName` - (Object) A map of the HTML form fields indexed by `name`.
-* `submit` - An HTML submit button.
-* `isFormValid` - (Bool) A flag indicating the validation state of the entire form.
+* `name` (String) The name of the form definition if one was supplied.
+* `fields` (Array) The HTML form fields.
+* `fieldsByName` (Object) A map of the HTML form fields indexed by `name`.
+* `submit` An HTML submit button.
+* `isFormValid` (Bool) A flag indicating the validation state of the entire form.
 
 #### Example, accessing elements by name
 
@@ -252,7 +253,10 @@ export default Formwork(FormCss, {
 		fieldset: 'blue-background',
 		legend: 'orange-background',
 		input: 'green-background',
-		error: { 'backgroundColor': '#ff0000' },
+		error: {
+		    'backgroundColor': '#ff0000',
+			'color': '#000'
+		},
 		submit: 'yellow-background'
 	}
 });
