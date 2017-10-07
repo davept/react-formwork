@@ -68,7 +68,7 @@ In this case each array element will be an object defining a single form field. 
 * `[type]` (String) One of the HTML input types: `text`, `radio`, `select`, `password`, etc...
 * `[*]` Any other properties, such as `data-id`, `aria-describedby`, etc., will be added to the input control.
 
-#### css (Object)
+#### CSS (Object)
 Contains 5 optional fields which may be a string representing a CSS class name or an object representing a React inline CSS definition.
 * `[fieldset]` (Object|String) CSS applied to the fieldset HTML element wrapping each form field.
 * `[legend]` (Object|String) CSS applied to the legend HTML element containing the form field title.
@@ -217,7 +217,7 @@ class MyForm extends Component {
         e.preventDefault();
         const {data, isFormValid} = this.props.formwork;
         if (isFormValid) {
-            // Do something with: `data`
+            // Do something with `data`
         }
     };
     
@@ -254,8 +254,8 @@ export default Formwork(FormCss, {
 		legend: 'orange-background',
 		input: 'green-background',
 		error: {
-		    'backgroundColor': '#ff0000',
-			'color': '#000'
+            'backgroundColor': '#ff0000',
+            'color': '#000'
 		},
 		submit: 'yellow-background'
 	}
@@ -277,7 +277,7 @@ export default Formwork(MyForm, {
 ```
 output:
 ```html
-<input type="text" name="email" data-entityId="101" aria-describedby="info" class="form-control">
+<input type="text" name="email" data-entityId="101" aria-describedby="info">
 ```
 
 #### Testing
