@@ -61,18 +61,18 @@ export default function (ComposedComponent, config) {
 
             return map(name.split(/(?=[A-Z])|\s/), s => capitalize(s)).join(' ');
         }
-		
-		elementCss = style => {
-			if (isObject(style)) {
-				return {style};
-			}
-			
-			if (isString(style)) {
-				return {className: style};
-			}
-			
-			return {};
-		};
+
+        elementCss = style => {
+            if (isObject(style)) {
+                return {style};
+            }
+
+            if (isString(style)) {
+                return {className: style};
+            }
+
+            return {};
+        };
 
         err = name => {
             const {isValid, message} = this.state.validators[name] || {};
@@ -129,7 +129,8 @@ export default function (ComposedComponent, config) {
 
             switch (type) {
                 case 'select':
-                    return <select name={inputName} onChange={onChange} defaultValue={value || -1} {...css} {...additionalProperties}>
+                    return <select name={inputName} onChange={onChange}
+                                   defaultValue={value || -1} {...css} {...additionalProperties}>
                         {isNil(value) ? <option value={-1} disabled hidden/> : ''}
                         {map(data, option => <option key={option.key} value={option.key}>{option.value}</option>)}
                     </select>;
@@ -143,7 +144,8 @@ export default function (ComposedComponent, config) {
                         ])}
                     </div>;
                 default:
-                    return <input type={type} name={inputName} onBlur={this.onBlur} onChange={onChange} value={value} {...css} {...additionalProperties}/>;
+                    return <input type={type} name={inputName} onBlur={this.onBlur} onChange={onChange}
+                                  value={value} {...css} {...additionalProperties}/>;
             }
         };
 
@@ -177,12 +179,12 @@ export default function (ComposedComponent, config) {
                 }
 
                 const formElement = generateTemplate(
-					title,
-					name,
-					input(type, name, this.onChange, field.data, this.elementCss(css.input), rest),
-					this.elementCss(css.fieldset),
-					this.elementCss(css.legend),
-					this.elementCss(css.error));
+                    title,
+                    name,
+                    input(type, name, this.onChange, field.data, this.elementCss(css.input), rest),
+                    this.elementCss(css.fieldset),
+                    this.elementCss(css.legend),
+                    this.elementCss(css.error));
 
                 fields.push(formElement);
                 fieldsByName[name] = formElement;
@@ -191,7 +193,8 @@ export default function (ComposedComponent, config) {
             return {
                 fields,
                 fieldsByName,
-                submit: <button type="submit" disabled={!this.state.isFormValid} {...this.elementCss(css.submit)}>Submit</button>
+                submit: <button type="submit" disabled={!this.state.isFormValid} {...this.elementCss(css.submit)}>
+                    Submit</button>
             };
         }
 
@@ -200,7 +203,7 @@ export default function (ComposedComponent, config) {
                 ...this.generate(),
                 data: this.state.form,
                 isFormValid: this.state.isFormValid,
-				name: config.name || ''
+                name: config.name || ''
             }}/>
         }
     }

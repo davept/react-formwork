@@ -199,7 +199,8 @@ exports.default = function (ComposedComponent, config) {
                         case 'select':
                             return _react2.default.createElement(
                                 'select',
-                                _extends({ name: inputName, onChange: onChange, defaultValue: value || -1 }, css, additionalProperties),
+                                _extends({ name: inputName, onChange: onChange,
+                                    defaultValue: value || -1 }, css, additionalProperties),
                                 (0, _isNil2.default)(value) ? _react2.default.createElement('option', { value: -1, disabled: true, hidden: true }) : '',
                                 (0, _map2.default)(data, function (option) {
                                     return _react2.default.createElement(
@@ -219,7 +220,8 @@ exports.default = function (ComposedComponent, config) {
                                 })
                             );
                         default:
-                            return _react2.default.createElement('input', _extends({ type: type, name: inputName, onBlur: _this.onBlur, onChange: onChange, value: value }, css, additionalProperties));
+                            return _react2.default.createElement('input', _extends({ type: type, name: inputName, onBlur: _this.onBlur, onChange: onChange,
+                                value: value }, css, additionalProperties));
                     }
                 };
             };
