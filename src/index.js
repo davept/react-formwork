@@ -16,11 +16,17 @@ export default function (ComposedComponent, config) {
 
             this.state = {
                 validators: {},
-                form: config.data || {}
+                form: this.normalizeConfig(config.data) || {}
             };
         }
 
-        normalizeFormworkFields = ({fields}) => isArray(fields) ? fields : map(keys(fields), key => ({name: key}));
+        normalizeConfig = keyOrConfig => isString(keyOrConfig) ? this.props[keyOrConfig] : keyOrConfig;
+
+        normalizeFormworkFields = ({fields}) => {
+            const formworkFields = this.normalizeConfig(fields);
+
+            return isArray(formworkFields) ? formworkFields : map(keys(formworkFields), key => ({name: key}));
+        };
 
         componentDidMount() {
             const formworkFields = this.normalizeFormworkFields(config);

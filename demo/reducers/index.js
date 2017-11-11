@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux'
-import recordsReducer from './records'
+import records from './records'
 
 const rootReducer = combineReducers({
     routing: routerReducer,
-    recordsReducer
+    records
 });
 
 export default rootReducer;

@@ -1,4 +1,4 @@
-# React-Formwork
+# React-Formwork  [![NPM version][npm-image]][npm-url]
 
 **A ReactJS higher order component (HoC) to generate an HTML form from a Javascript object.**
 
@@ -39,24 +39,31 @@ export default Formwork(MyForm, {
 });
 ```
 
-In the example above we pass our JS object `model` to the `Formwork` HoC.  We pull the generated HTML form fields, the submit button and our bound data object from `props.formwork`
+In the example above we pass our JS object `model` to the `Formwork` HoC.  We pull the generated HTML form fields, the 
+submit button and our bound data object from `props.formwork`
 
 # API
 
 ### `Formwork(component, formDefinition)`
 
-`Formwork` uses `formDefinition` to generate HTML form elements and associated onChange databind and onBlur validation events then pass an array of these form fields to `component`.
+`Formwork` uses `formDefinition` to generate HTML form elements and associated onChange databind and onBlur validation 
+events then pass an array of these form fields to `component`.
 
 #### Arguments:
 * `component` a `React.Component` class.
 * `formDefinition` this is an Object containing these properties:
   - `[name]` (String) An optional name for the form definition; returned in props.formwork.
-  - `fields` (Object|Array) This is either an object where the property names represent form fields or an array of objects, each object defining a field.
-  - `[data]` (Object) Optionally supply an object with properties matching form field names containing data.
+  - `fields` (Object|Array|String) This is either an object where the property names represent form fields or an array 
+  of objects, each object defining a field or a string property name where the fields definition exists.
+  - `[data]` (Object|String) Optionally supply an object with properties matching form field names containing data.
   - `[css]` (Object) Optional object containing CSS definitions or class names for the form elements.
 
+#### `fields` (String)
+* The name of an Array or Object definition to be found in `this.props.[<fields>]`
+
 #### `fields` (Object)
-In the simplest case a plain old Javascript object; each property, where hasOwnProperty is true, will be used to generate an HTML text input field. 
+In the simplest case a plain old Javascript object; each property, where hasOwnProperty is true, will be used to generate
+ an HTML text input field. 
 
 #### `fields` (Array)
 In this case each array element will be an object defining a single form field.  Each Object may contain the following properties:
@@ -69,7 +76,8 @@ In this case each array element will be an object defining a single form field. 
 * `[*]` Any other properties, such as `data-id`, `aria-describedby`, etc., will be added to the input control.
 
 #### CSS (Object)
-Contains 5 optional fields which may be a string representing a CSS class name or an object representing a React inline CSS definition.
+Contains 5 optional fields which may be a string representing a CSS class name or an object representing a React inline 
+CSS definition.
 * `[fieldset]` (Object|String) CSS applied to the fieldset HTML element wrapping each form field.
 * `[legend]` (Object|String) CSS applied to the legend HTML element containing the form field title.
 * `[input]` (Object|String) CSS applied to the HTML input element.
@@ -159,6 +167,16 @@ export default Formwork(MyForm, {
 });
 ```
 By default names will be split by capital letter and then capitalised.  When this doesn't work such as `ISBN` becoming `I S B N` you can supply a titles map.
+
+#### Example, field definition and data located in Redux store:
+```jsx harmony
+export default connect(state => ({
+    artist: state.records.artist
+}))(Formwork(editMusicBrainz, {
+    fields: 'artist',
+    data:  'artist'
+}));
+```
 
 #### Example, customising form elements
 To fully customise the form fields instead of depending on default conventions, supply an array of objects to the `fields` property.
@@ -280,6 +298,10 @@ output:
 <input type="text" name="email" data-entityId="101" aria-describedby="info">
 ```
 
+#### Run Examples
+
+npm run demo
+
 #### Testing
 
 npm run test
@@ -291,3 +313,5 @@ npm run dist
 #### ToDo
 
 * Add functional tests for validation
+
+[npm-url]: https://www.npmjs.com/package/react-formwork

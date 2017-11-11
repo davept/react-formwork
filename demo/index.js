@@ -8,6 +8,9 @@ import configureStore from './configureStore'
 import App from './components/App';
 import menu from './components/menu'
 import form1 from './components/forms/form1'
+import editArtist from './components/forms/editArtist'
+import editLabel from './components/forms/editLabel'
+import editRecording from './components/forms/editRecording'
 
 const history = createBrowserHistory();
 const store = configureStore(history);
@@ -18,9 +21,9 @@ ReactDOM.render(
             <App>
                 <Route path="/" component={menu} />
                 <Route path="/form1" component={form1} />
-                <Route path="/form2" component={form1} />
-                <Route path="/form3" component={form1} />
-                <Route path="/form4" component={form1} />
+                <Route path="/editArtist" component={editArtist} />
+                <Route path="/editLabel" component={editLabel} />
+                <Route path="/editRecording" component={editRecording} />
             </App>
         </Router>
     </Provider>,

@@ -17,8 +17,7 @@ const configureStore = history => {
 
     return createStore(
         allReducers,
-        //persistedState // <- optional
-        applyMiddleware(...middlewares) // <- this parameter is called an enhancer
+        applyMiddleware(...middlewares)
     );
 };
 
