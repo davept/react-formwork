@@ -315,3 +315,4 @@ npm run dist
 * Add functional tests for validation
 
 [npm-url]: https://www.npmjs.com/package/react-formwork
+[npm-image]: http://img.shields.io/npm/v/react-responsive.svg
