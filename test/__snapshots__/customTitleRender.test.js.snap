@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test a form with custom form field titles 1`] = `
+<div>
+  <fieldset>
+    <legend>
+      First Name
+    </legend>
+    <input
+      name="name"
+      onBlur={[Function]}
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+    <label>
+      
+    </label>
+  </fieldset>
+  <fieldset>
+    <legend>
+      Primary Email Address
+    </legend>
+    <input
+      name="email"
+      onBlur={[Function]}
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+    <label>
+      
+    </label>
+  </fieldset>
+</div>
+`;
