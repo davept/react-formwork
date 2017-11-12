@@ -65,13 +65,14 @@ const getDefaults = () => ({
                 /* some properties omitted to keep this example shorter. */
             }
         ]
-    }
+    },
+    dataSet: null
 });
 
 const records = (state = getDefaults(), action) => {
     switch (action.type) {
-        case 'X':
-            return state;
+        case 'EDIT_SET':
+            return {...state, dataSet: action.set };
         default:
             return state;
     }

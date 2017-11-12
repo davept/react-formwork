@@ -278,6 +278,15 @@ exports.default = function (ComposedComponent, config) {
                 this.setState({ validators: validators, isFormValid: isFormValid });
             }
         }, {
+            key: 'componentWillReceiveProps',
+            value: function componentWillReceiveProps(nextProps) {
+                if ((0, _isString2.default)(config.data)) {
+                    var form = nextProps[config.data];
+
+                    this.setState({ form: form });
+                }
+            }
+        }, {
             key: 'titleFromName',
             value: function titleFromName(name) {
                 if ((0, _isNil2.default)(name) || name === '') {

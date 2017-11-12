@@ -60,6 +60,14 @@ export default function (ComposedComponent, config) {
             this.setState({validators, isFormValid});
         }
 
+        componentWillReceiveProps(nextProps) {
+            if (isString(config.data)) {
+                const form = nextProps[config.data];
+
+                this.setState({form});
+            }
+        }
+
         titleFromName(name) {
             if (isNil(name) || name === '') {
                 return '';
